@@ -10,6 +10,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_ecr_repository" "app_repo" {
   name                 = "devops-bootcamp/final-project-aishah"
   image_tag_mutability = "MUTABLE"
+  force_delete         = true
 }
 
 resource "aws_instance" "web" {
