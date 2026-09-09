@@ -1,0 +1,19 @@
+---
+aws_region: ap-southeast-1
+aws_account_id: "332677055872"
+
+ecr_registry: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com"
+app_image: "{{ ecr_registry }}/devops-bootcamp/final-project-aishah:v1"
+
+monitoring_domain: monitoring.infratify.com
+
+node_exporter_image: "quay.io/prometheus/node-exporter:v1.9.1"
+prometheus_image: "prom/prometheus:v3.5.0"
+grafana_image: "grafana/grafana:12.1.0"
+cloudflared_image: "cloudflare/cloudflared:2025.8.0"
+
+docker_install_compose: false
+docker_install_compose_plugin: true
+docker_service_enabled: true
+
+monitoring_dir: /opt/monitoring
