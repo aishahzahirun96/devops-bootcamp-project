@@ -1,4 +1,4 @@
 ---
-- import_playbook: install-docker.yaml
-- import_playbook: deploy-app.yaml
-- import_playbook: deploy-monitoring.yaml
+- import_playbook: tasks/install-docker.yaml
+- import_playbook: tasks/deploy-app.yaml
+- import_playbook: tasks/deploy-monitoring.yaml
