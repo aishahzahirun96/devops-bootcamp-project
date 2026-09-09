@@ -5,7 +5,7 @@
 
   vars:
     aws_region: ap-southeast-1
-    ecr_registry: "GANTI_ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com"
+    ecr_registry: "332677055872.dkr.ecr.ap-southeast-1.amazonaws.com"
     app_image: "{{ ecr_registry }}/devops-bootcamp/final-project-aishah:v1"
 
   tasks:
