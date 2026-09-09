@@ -12,15 +12,15 @@
 
     - name: Copy Prometheus configuration
       ansible.builtin.copy:
-        src: prometheus.yml
-        dest: /opt/monitoring/prometheus.yml
+        src: prometheus.yaml
+        dest: /opt/monitoring/prometheus.yaml
         mode: "0644"
       notify: Restart Prometheus
 
     - name: Copy Compose file
       ansible.builtin.copy:
-        src: compose.yml
-        dest: /opt/monitoring/compose.yml
+        src: compose.yaml
+        dest: /opt/monitoring/compose.yaml
         mode: "0644"
 
     - name: Start monitoring containers
