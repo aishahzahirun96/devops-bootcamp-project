@@ -1,12 +1,17 @@
-# Abaikan folder rahsia dan palam Terraform
-**/terraform/.terraform/
-terraform/.terraform.lock.hcl
+**/.terraform/
 *.tfstate
 *.tfstate.*
+*.tfplan
+tfplan
+*.tfvars
+*.tfvars.json
 
-# Abaikan fail sensitif Ansible atau kata laluan
-**/*.vault
-**/ansible/.ansible_vault
+*.pem
+*.key
+.env
+.env.*
+**/secrets/
 
-# Abaikan fail log
-*.log
+**/node_modules/
+**/dist/
+_site/

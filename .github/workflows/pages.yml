@@ -1,0 +1,59 @@
+name: Publish README
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+      - docs/**
+      - .github/workflows/pages.yml
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/configure-pages@v5
+
+      - name: Build documentation
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+          mkdir -p _site
+
+          pandoc README.md \
+            --from=gfm \
+            --standalone \
+            --metadata title="DevOps Bootcamp - Aishah" \
+            --output=_site/index.html
+
+          if [ -d docs ]; then
+            cp -r docs _site/docs
+          fi
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
