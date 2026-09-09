@@ -4,16 +4,11 @@
   become: true
 
   pre_tasks:
-    - name: Wait for initial cloud-init
-      ansible.builtin.command: cloud-init status --wait
-      changed_when: false
-
     - name: Install Python dependencies
       ansible.builtin.apt:
         name:
           - python3-requests
           - python3-boto3
-          - ca-certificates
         state: present
         update_cache: true
         cache_valid_time: 3600

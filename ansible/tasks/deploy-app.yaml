@@ -1,55 +1,49 @@
+---
 - name: Deploy application and node exporter
   hosts: web
   become: true
 
+  vars:
+    aws_region: ap-southeast-1
+    ecr_registry: "GANTI_ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com"
+    app_image: "{{ ecr_registry }}/devops-bootcamp/final-project-aishah:v1"
+
   tasks:
-    - name: Obtain ECR token using web instance IAM role
+    - name: Install AWS CLI
+      ansible.builtin.command: snap install aws-cli --classic
+      args:
+        creates: /snap/bin/aws
+
+    - name: Get ECR login password
       ansible.builtin.command:
-        argv:
-          - /usr/bin/python3
-          - -c
-          - |
-            import boto3
-            import json
-            client = boto3.client("ecr", region_name="{{ aws_region }}")
-            auth = client.get_authorization_token()["authorizationData"][0]
-            print(json.dumps(auth))
-      register: ecr_auth
+        cmd: "/snap/bin/aws ecr get-login-password --region {{ aws_region }}"
+      register: ecr_password
       changed_when: false
       no_log: true
 
-    - name: Authenticate Docker with private ECR
+    - name: Login Docker to ECR
       community.docker.docker_login:
         registry_url: "{{ ecr_registry }}"
         username: AWS
-        password: >-
-          {{ ((ecr_auth.stdout | from_json).authorizationToken
-              | b64decode).split(':', 1)[1] }}
+        password: "{{ ecr_password.stdout }}"
       no_log: true
-      # Refreshing short-lived registry credentials is not a deployment change.
-      changed_when: false
 
-    - name: Run application container
+    - name: Run application
       community.docker.docker_container:
         name: bootcamp-app
         image: "{{ app_image }}"
         state: started
         restart_policy: unless-stopped
-        pull: missing
+        pull: always
         published_ports:
           - "80:80"
-        log_driver: json-file
-        log_options:
-          max-size: "10m"
-          max-file: "3"
 
-    - name: Run host node exporter
+    - name: Run node exporter
       community.docker.docker_container:
         name: node-exporter
-        image: "{{ node_exporter_image }}"
+        image: quay.io/prometheus/node-exporter:v1.9.1
         state: started
         restart_policy: unless-stopped
-        pull: missing
         network_mode: host
         pid_mode: host
         command:
@@ -57,16 +51,3 @@
           - "--web.listen-address=10.0.0.5:9100"
         volumes:
           - "/:/host:ro,rslave"
-        log_driver: json-file
-        log_options:
-          max-size: "10m"
-          max-file: "3"
-
-    - name: Verify web application responds
-      ansible.builtin.uri:
-        url: http://127.0.0.1/
-        status_code: 200
-      register: app_check
-      until: app_check.status == 200
-      retries: 12
-      delay: 5

@@ -1,11 +1,4 @@
 ---
-# Master Playbook untuk Menguruskan Seluruh Infrastruktur
-
-# 1. Pasang perisian Docker pada semua server terlebih dahulu
-- ansible.builtin.import_playbook: install-docker.yml
-
-# 2. Lancarkan aplikasi web pada server kategori 'web'
-- ansible.builtin.import_playbook: deploy-app.yml
-
-# 3. Sediakan sistem pemantauan pada server kategori 'monitoring'
-- ansible.builtin.import_playbook: deploy-monitoring.yml
+- import_playbook: install-docker.yaml
+- import_playbook: deploy-app.yaml
+- import_playbook: deploy-monitoring.yaml

@@ -1,133 +1,37 @@
 ---
-- name: Deploy monitoring stack
+- name: Deploy monitoring
   hosts: monitoring
   become: true
 
   tasks:
-    - name: Create monitoring directories
+    - name: Create monitoring directory
       ansible.builtin.file:
-        path: "{{ monitoring_dir }}/{{ item }}"
+        path: /opt/monitoring
         state: directory
-        owner: root
-        group: root
         mode: "0755"
-      loop:
-        - ""
-        - provisioning
-        - provisioning/datasources
-        - provisioning/dashboards
-        - dashboards
 
-    - name: Create restricted secrets directory
-      ansible.builtin.file:
-        path: "{{ monitoring_dir }}/secrets"
-        state: directory
-        owner: root
-        group: root
-        mode: "0700"
-
-    - name: Write Grafana initial admin password
+    - name: Copy Prometheus configuration
       ansible.builtin.copy:
-        content: "{{ vault_grafana_admin_password }}"
-        dest: "{{ monitoring_dir }}/secrets/grafana_admin_password"
-        owner: "472"
-        group: "472"
-        mode: "0400"
-      no_log: true
-      notify: Restart Grafana
-
-    - name: Write Cloudflare tunnel token
-      ansible.builtin.copy:
-        content: "{{ vault_cloudflare_tunnel_token }}"
-        dest: "{{ monitoring_dir }}/secrets/cloudflare_token"
-        owner: "65532"
-        group: "65532"
-        mode: "0400"
-      no_log: true
-      notify: Restart tunnel
-
-    - name: Render Prometheus configuration
-      ansible.builtin.template:
-        src: prometheus.yml.j2
-        dest: "{{ monitoring_dir }}/prometheus.yml"
+        src: prometheus.yml
+        dest: /opt/monitoring/prometheus.yml
         mode: "0644"
       notify: Restart Prometheus
 
-    - name: Render Grafana provisioning
-      ansible.builtin.template:
-        src: "{{ item.src }}"
-        dest: "{{ monitoring_dir }}/{{ item.dest }}"
-        mode: "0644"
-      loop:
-        - src: datasource.yml.j2
-          dest: provisioning/datasources/prometheus.yml
-        - src: dashboards.yml.j2
-          dest: provisioning/dashboards/default.yml
-      notify: Restart Grafana
-
-    - name: Copy web server dashboard
+    - name: Copy Compose file
       ansible.builtin.copy:
-        src: web-server.json
-        dest: "{{ monitoring_dir }}/dashboards/web-server.json"
+        src: compose.yml
+        dest: /opt/monitoring/compose.yml
         mode: "0644"
 
-    - name: Render Docker Compose configuration
-      ansible.builtin.template:
-        src: compose.yml.j2
-        dest: "{{ monitoring_dir }}/compose.yml"
-        mode: "0644"
-
-    - name: Start monitoring services
+    - name: Start monitoring containers
       community.docker.docker_compose_v2:
-        project_src: "{{ monitoring_dir }}"
+        project_src: /opt/monitoring
         state: present
-        pull: missing
-        recreate: auto
-
-    - name: Apply configuration handlers before checks
-      ansible.builtin.meta: flush_handlers
-
-    - name: Verify Prometheus readiness
-      ansible.builtin.uri:
-        url: http://127.0.0
-        status_code: 200
-      register: prometheus_check
-      until: prometheus_check.status == 200
-      retries: 20
-      delay: 5
-
-    - name: Verify Grafana health
-      ansible.builtin.uri:
-        url: http://127.0.0
-        status_code: 200
-      register: grafana_check
-      until: grafana_check.status == 200
-      retries: 20
-      delay: 5
-
-    - name: Verify node exporter reachable from monitoring
-      ansible.builtin.uri:
-        url: http://10.0.0
-        status_code: 200
 
   handlers:
     - name: Restart Prometheus
       community.docker.docker_compose_v2:
-        project_src: "{{ monitoring_dir }}"
+        project_src: /opt/monitoring
         state: restarted
         services:
           - prometheus
-
-    - name: Restart Grafana
-      community.docker.docker_compose_v2:
-        project_src: "{{ monitoring_dir }}"
-        state: restarted
-        services:
-          - grafana
-
-    - name: Restart tunnel
-      community.docker.docker_compose_v2:
-        project_src: "{{ monitoring_dir }}"
-        state: restarted
-        services:
-          - tunnel
