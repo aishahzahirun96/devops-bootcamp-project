@@ -36,6 +36,9 @@ jobs:
         run: |
           mkdir -p _pages
 
+          # Kunci Custom Domain supaya tidak terpadam semasa build
+          echo "readme.aishahzahirun.asia" > _pages/CNAME
+
           {
             echo "---"
             echo "title: DevOps Bootcamp Project"
