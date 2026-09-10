@@ -15,7 +15,7 @@ Infrastructure deployment and configuration automation on AWS using Terraform, D
 | Service | URL |
 |---|---|
 | Web Application | [web.aishahzahirun.asia](https://web.aishahzahirun.asia) |
-| Monitoring | [monitoring.aishahzahirun.asia](https://monitoring.aishahzahirun.asia) |
+| Monitoring | [monitoring.aishahzahirun.asia](https://monitoring.aishahzahirun.asia/d/0b705712-09ca-406d-94fd-9cf905ff8390/armada-node-overview?orgId=1&from=now-15m&to=now&timezone=browser&refresh=30s) |
 | GitHub Repository | [devops-bootcamp-project](https://github.com/aishahzahirun96/devops-bootcamp-project) |
 | Documentation | [GitHub Pages](https://readme.aishahzahirun.asia/) |
 
