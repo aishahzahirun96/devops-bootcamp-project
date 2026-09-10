@@ -93,11 +93,12 @@ Prometheus :9090 → Grafana
 ├── ansible/
 │   ├── ansible.cfg
 │   ├── inventory.ini
-│   ├── requirements.yml
-│   ├── site.yml
-│   ├── install-docker.yaml
-│   ├── deploy-app.yaml
-│   ├── deploy-monitoring.yaml
+│   ├── requirements.yaml
+│   ├── site.yaml
+│   └── tasks/
+│   │   ├── install-docker.yaml
+│   │   ├── deploy-app.yaml
+│   │   └──  deploy-monitoring.yaml
 │   └── files/
 │       ├── compose.yml
 │       └── prometheus.yaml
@@ -134,6 +135,7 @@ devops-bootcamp-terraform-aishah
 ### Terraform Commands
 
 ```bash
+cd terraform
 terraform init
 terraform fmt
 terraform validate
@@ -292,7 +294,7 @@ Prometheus uses a bind-mounted configuration file:
 ```text
 /opt/monitoring/prometheus.yaml
     →
-/etc/prometheus/prometheus.yml
+/etc/prometheus/prometheus.yaml
 ```
 
 Grafana uses a named Docker volume:
@@ -353,9 +355,11 @@ The monitoring server remains in the private subnet and does not require a publi
 
 ### Cloudflare Evidence
 
+![application domain](docs/screenshots/web-a-record.png)
 ![application domain](docs/screenshots/application-domain.png)
-![cloudflare tunnel](docs/screenshots/cloudflare-tunnel.png)
-![cloudflare tunnel hostname](docs/screenshots/cloudflare-tunnel-hostname.png)
+![Cloudflare tunnel](docs/screenshots/cloudflare-tls-ssl.png)
+![Cloudflare tunnel](docs/screenshots/cloudflare-tunnel.png)
+![Cloudflare tunnel hostname](docs/screenshots/cloudflare-tunnel-hostname.png)
 ![monitoring domain](docs/screenshots/monitoring-domain.png)
 
 ## 6. GitHub Pages
