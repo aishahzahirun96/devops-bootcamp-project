@@ -354,8 +354,8 @@ The monitoring server remains in the private subnet and does not require a publi
 ### Cloudflare Evidence
 
 ![application domain](docs/screenshots/application-domain.png)
-![cloudflare tunnel](docs/screenshots/cloudlfare-tunnel.png)
-![cloudflare tunnel hostname](docs/screenshots/cloudlfare-tunnel-hostname.png)
+![cloudflare tunnel](docs/screenshots/cloudflare-tunnel.png)
+![cloudflare tunnel hostname](docs/screenshots/cloudflare-tunnel-hostname.png)
 ![monitoring domain](docs/screenshots/monitoring-domain.png)
 
 ## 6. GitHub Pages
