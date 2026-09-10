@@ -355,7 +355,7 @@ The monitoring server remains in the private subnet and does not require a publi
 
 ### Cloudflare Evidence
 
-![application domain](docs/screenshots/web-a-record.png)
+![web a record](docs/screenshots/web-a-record.png)
 ![application domain](docs/screenshots/application-domain.png)
 ![Cloudflare tunnel](docs/screenshots/cloudflare-tls-ssl.png)
 ![Cloudflare tunnel](docs/screenshots/cloudflare-tunnel.png)
