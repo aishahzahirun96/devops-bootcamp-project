@@ -21,7 +21,7 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.public_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.ssm_profile.name
   key_name               = "aishahzahirun96-server"
-  tags = { Name = "web server" }
+  tags                   = { Name = "web server" }
 
   root_block_device {
     volume_type = "gp3"
@@ -44,7 +44,7 @@ resource "aws_instance" "controller" {
   vpc_security_group_ids = [aws_security_group.private_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.ssm_profile.name
   key_name               = "aishahzahirun96-server"
-  tags = { Name = "Ansible controller" }
+  tags                   = { Name = "Ansible controller" }
 
   root_block_device {
     volume_type = "gp3"
@@ -63,8 +63,8 @@ resource "aws_instance" "monitoring" {
   vpc_security_group_ids = [aws_security_group.private_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.ssm_profile.name
   key_name               = "aishahzahirun96-server"
-  tags = { Name = "monitoring server" }
-  
+  tags                   = { Name = "monitoring server" }
+
   root_block_device {
     volume_type = "gp3"
     volume_size = 20
