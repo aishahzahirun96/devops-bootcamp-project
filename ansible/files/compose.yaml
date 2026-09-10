@@ -20,3 +20,5 @@ services:
 volumes:
   grafana-data:
     name: grafana-data
+      - "./grafana/provisioning:/etc/grafana/provisioning:ro"
+      - "./grafana/dashboards:/var/lib/grafana/dashboards:ro"
