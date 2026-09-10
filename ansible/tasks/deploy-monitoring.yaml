@@ -23,13 +23,6 @@
         dest: /opt/monitoring/compose.yaml
         mode: "0644"
 
-    - name: Copy Grafana provisioning and dashboards
-      ansible.builtin.copy:
-        src: ../files/grafana/
-        dest: /opt/monitoring/grafana/
-        mode: preserve
-      notify: Restart Grafana
-
     - name: Start monitoring containers
       community.docker.docker_compose_v2:
         project_src: /opt/monitoring
@@ -42,10 +35,3 @@
         state: restarted
         services:
           - prometheus
-
-    - name: Restart Grafana
-      community.docker.docker_compose_v2:
-        project_src: /opt/monitoring
-        state: restarted
-        services:
-          - grafana
