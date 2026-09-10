@@ -134,27 +134,22 @@ devops-bootcamp-terraform-aishah
 ### Terraform Commands
 
 ```bash
-terraform -chdir=terraform init
-terraform -chdir=terraform fmt
-terraform -chdir=terraform validate
-terraform -chdir=terraform plan
-terraform -chdir=terraform apply
+terraform init
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
 ```
 
 ### Infrastructure Evidence
 
-Add screenshots showing:
 
-- VPC and subnets
-- Internet Gateway and NAT Gateway
-- Route tables
-- EC2 instances and IP addresses 
-- Security groups
-- IAM instance profiles
-
-<!-- Example:
-![AWS EC2 instances](docs/screenshots/aws-ec2.png)
--->
+![VPC, internet gateway and NAT gateway](docs/screenshots/vpc.png)
+![web server](docs/screenshots/ec2-web-server.png)
+![ansible controller](docs/screenshots/ec2-ansible-controller.png)
+![monitoring server](docs/screenshots/ec2-monitoring.png)
+![terraform apply](docs/screenshots/terraform-apply-output.png)
+![terraform output](docs/screenshots/terraform-output.png)
 
 ## 2. Docker and Amazon ECR
 
@@ -210,10 +205,9 @@ docker push "$ECR_REPO:$IMAGE_TAG"
 
 ### Docker and ECR Evidence
 
-<!--
-![Application running locally](docs/screenshots/docker-local.png)
-![Private ECR image](docs/screenshots/ecr-image.png)
--->
+![node exporter](docs/screenshots/node-exporter-web.png)
+![ECR](docs/screenshots/ECR.png)
+![ECR image](docs/screenshots/ECR2.png)
 
 ## 3. Configuration with Ansible
 
@@ -263,11 +257,8 @@ Run the playbook a second time to demonstrate that the configuration is repeatab
 
 ### Ansible Evidence
 
-<!--
-![Ansible connectivity](docs/screenshots/ansible-ping.png)
-![Ansible playbook run](docs/screenshots/ansible-run.png)
-![Ansible repeated run](docs/screenshots/ansible-idempotent.png)
--->
+![ansible-run](docs/screenshots/ansible-run.png)
+![ansible-idempotent](docs/screenshots/ansible-idempotent.png)
 
 ## 4. Monitoring
 
@@ -332,11 +323,9 @@ A result value of `1` confirms that Prometheus can scrape node_exporter.
 
 ### Monitoring Evidence
 
-<!--
-![Node exporter container](docs/screenshots/node-exporter.png)
-![Prometheus target UP](docs/screenshots/prometheus-target.png)
-![Grafana dashboard](docs/screenshots/grafana-dashboard.png)
--->
+![prometheus](docs/screenshots/prometheus-status.png)
+![grafana dashboard](docs/screenshots/grafana-dashboard.png)
+![grafana volume](docs/screenshots/grafana-named-volume.png)
 
 ## 5. DNS and Cloudflare
 
@@ -364,11 +353,10 @@ The monitoring server remains in the private subnet and does not require a publi
 
 ### Cloudflare Evidence
 
-<!--
-![Cloudflare web DNS](docs/screenshots/cloudflare-web-dns.png)
-![Cloudflare tunnel](docs/screenshots/cloudflare-tunnel.png)
-![Monitoring domain](docs/screenshots/monitoring-domain.png)
--->
+![application domain](docs/screenshots/application-domain.png)
+![cloudflare tunnel](docs/screenshots/cloudlfare-tunnel.png)
+![cloudflare tunnel hostname](docs/screenshots/cloudlfare-tunnel-hostname.png)
+![monitoring domain](docs/screenshots/monitoring-domain.png)
 
 ## 6. GitHub Pages
 
@@ -388,10 +376,9 @@ https://aishahzahirun96.github.io/devops-bootcamp-project/
 
 ### GitHub Pages Evidence
 
-<!--
-![GitHub Actions success](docs/screenshots/github-actions.png)
-![GitHub Pages website](docs/screenshots/github-pages.png)
--->
+![GitHub Actions build and deploy](docs/screenshots/github-pages/build-deploy.png)
+
+![Published GitHub Pages documentation](docs/screenshots/github-pages/pages-site.png)
 
 ## Security Notes
 
