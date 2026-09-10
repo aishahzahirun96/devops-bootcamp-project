@@ -17,7 +17,7 @@ Infrastructure deployment and configuration automation on AWS using Terraform, D
 | Web Application | [web.aishahzahirun.asia](https://web.aishahzahirun.asia) |
 | Monitoring | [monitoring.aishahzahirun.asia](https://monitoring.aishahzahirun.asia) |
 | GitHub Repository | [devops-bootcamp-project](https://github.com/aishahzahirun96/devops-bootcamp-project) |
-| Documentation | [GitHub Pages](https://aishahzahirun96.github.io/devops-bootcamp-project/) |
+| Documentation | [GitHub Pages](https://readme.aishahzahirun.asia/) |
 
 > The AWS infrastructure must be running for the application and monitoring URLs to remain accessible.
 
@@ -148,7 +148,7 @@ Add screenshots showing:
 - VPC and subnets
 - Internet Gateway and NAT Gateway
 - Route tables
-- EC2 instances and IP addresses
+- EC2 instances and IP addresses 
 - Security groups
 - IAM instance profiles
 
